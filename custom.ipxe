@@ -1,4 +1,9 @@
 #!ipxe
+imgfetch --name windows-custom.ipxe
+isset ${windows-custom.ipxe} && set menu_windows_custom 1 || set menu_windows_custom 0
+
+imgfetch --name nas.ipxe
+isset ${nas.ipxe} && set menu_nas 1 || set menu_nas 0
 
 :main_menu
 menu Custom Boot Menu
