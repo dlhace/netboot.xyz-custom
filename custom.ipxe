@@ -17,12 +17,12 @@ goto failed
 
 :windows_custom
 echo Booting Windows Custom Menu..
-# Your Windows Custom Menu script or commands go here
+chain windows-custom.ipxe
 goto exit
 
 :nas
 echo Booting NAS Menu...
-# Your NAS Menu script or commands go here
+chain nas.ipxe
 goto exit
 
 :shell
