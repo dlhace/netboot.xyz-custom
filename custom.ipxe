@@ -7,30 +7,10 @@
 clear custom_choice
 menu ${github_username} Custom Menu
 item --gap Windows
-iseq ${menu_windows} 1 && item windows10 ${space} Windows10 ||
-iseq ${menu_windows} 1 && item windows11 ${space} Windows11 ||
-iseq ${menu_windows} 1 && item windowsServer2019 ${space} Windows Server 2019 ||
-item --gap This is a second sub menu
-item option_four ${space} Loads another custom sub menu
-item option_five ${space} Exit
-choose custom_choice || goto custom_exit
-echo ${cls}
-goto ${custom_choice}
-goto custom_exit
+iseq ${menu_windows} 1 && item windows ${space} Windows ||
+item --gap NAS
+iseq ${menu_nas} 1 && item nas ${space} NAS distributions ||
 
-:option_one
-chain windows10.ipxe || goto custom
-
-:option_two
-chain windows11.ipxe || goto custom
-
-:option_three
-chain windowsServer.ipxe || goto custom
-
-:option_four
-echo Chains into another menu...
-chain custom1.ipxe || goto custom
 
 :custom_exit
-chain utils.ipxe
 exit
