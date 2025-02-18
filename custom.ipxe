@@ -1,16 +1,40 @@
 #!ipxe
-###
-### {{ site_name }} custom menu example
-###
 
-:custom
-clear custom_choice
-menu ${github_username} Custom Menu
-item --gap Windows
-iseq ${menu_windows} 1 && item windows ${space} Windows ||
-item --gap NAS
-iseq ${menu_nas} 1 && item nas ${space} NAS distributions ||
+:main_menu
+menu Custom Boot Menu
+item --gap --             -------------------------------
+iseq ${windows_custom} 1 && item windows_custom Windows Custom Menu ||
+iseq ${nas} 1 && item nas NAS Menu ||
+item shell Drop to iPXE shell
+item reboot Reboot
+item exit Exit
 
+choose --default windows_custom --timeout 30000 target && goto ${target} ||
+goto failed
 
-:custom_exit
-exit
+:windows_custom
+echo Booting Windows Custom Menu...
+# Your Windows Custom Menu script or commands go here
+goto exit
+
+:nas
+echo Booting NAS Menu...
+# Your NAS Menu script or commands go here
+goto exit
+
+:shell
+echo Entering iPXE shell...
+shell
+goto main_menu
+
+:reboot
+echo Rebooting...
+reboot
+
+:exit
+echo Exiting...
+exit 0
+
+:failed
+echo Failed to select a valid option
+goto main_menu
